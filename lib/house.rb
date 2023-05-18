@@ -43,6 +43,23 @@ class House
   end
 
   def details
-    { "price" => price, "address" => address }
+    {"price" => price, "address" => address}
+  end
+
+  def price_per_square_foot
+    (price.to_f / self.area).round(2)
+  end
+
+  def rooms_sorted_by_area
+    sorted_rooms = @rooms.sort { |a, b| b.area <=> a.area}
+    sorted_rooms
+  end
+
+  def rooms_by_category
+    categorized_rooms = Hash.new { |categorized_rooms, key| categorized_rooms[key] = [] }
+    @rooms.each do |room|
+      categorized_rooms[room.category] << room
+    end
+    categorized_rooms
   end
 end
